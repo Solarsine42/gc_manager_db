@@ -1,15 +1,19 @@
 const knex = require("../db/knex");
 
 exports.getAllCustTeeTimes = function(req, res) {
-  knex
-    .select()
+  knex("cust_tee_times")
+    .join("customers", "customers_id", "customer.id")
+    .join("tee_times", "tee_times.id", "tee_time_id")
+    // .select(customers.id, customer_id)
     .table("cust_tee_times")
     .then(custTeeTime => res.json(custTeeTime));
 };
 
 exports.getOneCustTeeTime = function(req, res) {
-  knex
-    .select()
+  knex("cust_tee_times")
+    .join("customers", "customers.id", "=", "customer_id")
+    .join("tee_times", "tee_times.id", "=", "tee_time_id")
+    .select(customers.id, customer_id, tee_times.id, tee_times_id)
     .table("cust_tee_times")
     .where("id", req.params.id)
     .then(custTeeTime => res.json(custTeeTime));
