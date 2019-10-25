@@ -40,3 +40,10 @@ exports.removeOneTime = function(req, res) {
     .returning("*")
     .then(newTime => res.json(newTime));
 };
+
+exports.makeTT = function(req, res) {
+  knex("cust_tee_times")
+    .insert(req.body)
+    .returning("*")
+    .then(newTT => resjson(newTT));
+};
