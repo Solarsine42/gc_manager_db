@@ -47,3 +47,11 @@ exports.makeTT = function(req, res) {
     .returning("*")
     .then(newTT => res.json(newTT));
 };
+
+exports.deleteTT = function(req, res) {
+  knex("cust_tee_times")
+    .del()
+    .where("id", req.params.id)
+    .returning("*")
+    .then(newTT => res.json(newTT));
+};

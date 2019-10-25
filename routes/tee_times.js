@@ -8,5 +8,6 @@ router.post("/", tee_times_controllers.addOneTime);
 router.patch("/:id", tee_times_controllers.updateOneTime);
 router.delete("/:id", tee_times_controllers.removeOneTime);
 router.post("/makeTT", tee_times_controllers.makeTT);
+router.delete("/deleteTT/:id", tee_times_controllers.deleteTT);
 
 module.exports = router;
