@@ -45,5 +45,5 @@ exports.makeTT = function(req, res) {
   knex("cust_tee_times")
     .insert(req.body)
     .returning("*")
-    .then(newTT => resjson(newTT));
+    .then(newTT => res.json(newTT));
 };
