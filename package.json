@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "jest -i --watchAll",
     "start": "node server.js"
   },
   "dependencies": {
@@ -16,5 +17,9 @@
     "knex": "^0.13.0",
     "morgan": "^1.9.0",
     "pg": "^7.3.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "supertest": "^4.0.2"
   }
 }
