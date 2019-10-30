@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable("tee_times", function(table) {
     table.increments();
-    table.datetime("time").notNullable();
+    table.string("time").notNullable();
   });
 };
 

@@ -1,14 +1,14 @@
 const knex = require("../db/knex");
 
 exports.getAllTimes = function(req, res) {
-  knex
+  knex("tee_times")
     .select()
     .table("tee_times")
     .then(times => res.json(times));
 };
 
 exports.getOneTime = function(req, res) {
-  knex
+  knex("tee_times")
     .select()
     .table("tee_times")
     .where("id", req.params.id)
@@ -24,10 +24,7 @@ exports.addOneTime = function(req, res) {
 
 exports.updateOneTime = function(req, res) {
   knex("tee_times")
-    .update({
-      ...req.body,
-      updated_at: new Date()
-    })
+    .update({ ...req.body })
     .where("id", req.params.id)
     .returning("*")
     .then(updatedTime => res.json(updatedTime));

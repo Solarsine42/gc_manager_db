@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "test": "jest -i --watchAll",
-    "start": "node server.js"
+    "start": "PORT=8000 nodemon app.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

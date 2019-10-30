@@ -13,6 +13,16 @@ describe("tee_times routes testing", () => {
     });
   });
 
+  // afterEach(done => {
+  //   return knex.migrate.rollback().then(() => {
+  //     knex.migrate.latest().then(() => {
+  //       knex.seed.run().then(() => {
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
+
   describe("get all tee_times", () => {
     it("should fetch all tee times successfully", async () => {
       const res = await request(app).get("/tee_times");
@@ -44,11 +54,11 @@ describe("tee_times routes testing", () => {
     });
   });
 
-  describe("update one tee", () => {
-    it("should update one tee successfully", async () => {
+  describe("update one tee time", () => {
+    it("should update one tee time successfully", async () => {
       // Setup
       const id = 1;
-      const updatedTeeTime = { time: "2019-10-10T10:10:10+07:00", id: 1 };
+      const updatedTeeTime = { time: "2019-10-10T10:10:10+07:00" };
 
       // Do the work
       const res = await request(app)
@@ -61,7 +71,9 @@ describe("tee_times routes testing", () => {
 
       // Test the database
       const tee_times = await knex("tee_times");
-      expect(tee_times[0].time).toEqual("2019-10-10T10:10:10+07:00");
+      expect(tee_times.find(tee_time => tee_time.id === id).time).toEqual(
+        "2019-10-10T10:10:10+07:00"
+      );
     });
   });
 
@@ -71,7 +83,7 @@ describe("tee_times routes testing", () => {
       const res = await request(app).delete(`/tee_times/${id}`);
 
       expect(res.status).toEqual(200);
-      expect(res.body[0].time).toEqual("2019-10-10T10:10:10+07:00");
+      expect(res.body[0].time).toEqual("2019-12-09T01:57:19+07:00");
 
       const tee_times = await knex("tee_times");
       expect(tee_times[0].id).toEqual(2);

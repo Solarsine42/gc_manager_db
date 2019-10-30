@@ -41,10 +41,10 @@ exports.removeOneCustomer = function(req, res) {
     .then(newCustomer => res.json(newCustomer));
 };
 
-function authenticate(email, password) {
-  if (email === "blah" && password === "blah") {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function authenticate(email, password) {
+//   if (email === "blah" && password === "blah") {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
