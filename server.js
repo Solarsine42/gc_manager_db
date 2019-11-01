@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/api", tee_times);
-app.use("/api", customers);
+app.use("/api/", tee_times);
+app.use("/api/", customers);
 
 module.exports = { app };
