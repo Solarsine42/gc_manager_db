@@ -58,7 +58,7 @@ describe("tee_times routes testing", () => {
     it("should update one tee time successfully", async () => {
       // Setup
       const id = 1;
-      const updatedTeeTime = { time: "2019-10-10T10:10:10+07:00" };
+      const updatedTeeTime = { time: "2019-12-08T18:57:19.000Z" };
 
       // Do the work
       const res = await request(app)
@@ -67,13 +67,13 @@ describe("tee_times routes testing", () => {
 
       // Test the response
       expect(res.status).toEqual(200);
-      expect(res.body[0].time).toEqual("2019-10-10T10:10:10+07:00");
+      expect(res.body[0].time.toString()).toEqual("2019-12-08T18:57:19.000Z");
 
       // Test the database
       const tee_times = await knex("tee_times");
-      expect(tee_times.find(tee_time => tee_time.id === id).time).toEqual(
-        "2019-10-10T10:10:10+07:00"
-      );
+      expect(
+        tee_times.find(tee_time => tee_time.id === id).time.toISOString()
+      ).toEqual("2019-12-08T18:57:19.000Z");
     });
   });
 
@@ -83,7 +83,7 @@ describe("tee_times routes testing", () => {
       const res = await request(app).delete(`/tee_times/${id}`);
 
       expect(res.status).toEqual(200);
-      expect(res.body[0].time).toEqual("2019-12-09T01:57:19+07:00");
+      expect(res.body[0].time).toEqual("2019-12-08T18:57:19.000Z");
 
       const tee_times = await knex("tee_times");
       expect(tee_times[0].id).toEqual(2);
