@@ -5,13 +5,11 @@ exports.up = function(knex, Promise) {
       .integer("customer_id")
       .references("id")
       .inTable("customers")
-      .notNullable()
       .onDelete("CASCADE");
     table
       .integer("tee_time_id")
       .references("id")
       .inTable("tee_times")
-      .notNullable()
       .onDelete("CASCADE");
   });
 };
