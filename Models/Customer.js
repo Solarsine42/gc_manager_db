@@ -15,7 +15,7 @@ class Customer extends Model {
         join: {
           from: "customers.id",
           through: {
-            // users_appointments is the join table.
+            // cust_tee_times is the join table.
             from: "cust_tee_times.customer_id",
             to: "cust_tee_times.tee_time_id"
           },

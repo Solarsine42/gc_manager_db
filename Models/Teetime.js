@@ -15,7 +15,7 @@ class Teetime extends Model {
         join: {
           from: "tee_times.id",
           through: {
-            // users_appointments is the join table.
+            // Customers_tee_times is the join table.
             from: "cust_tee_times.tee_time_id",
             to: "cust_tee_times.customer_id"
           },
