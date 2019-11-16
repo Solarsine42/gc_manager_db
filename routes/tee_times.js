@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Teetime = require("../models/Teetime");
+const knex = require("../db/knex");
 
 // router.get("/tee_times/", tee_times_controllers.getAllTimes);
 // router.get("/tee_times/:id", tee_times_controllers.getOneTime);
@@ -26,8 +27,28 @@ router.get("/:id", function(req, res, next) {
 
 router.post("/", function(req, res) {
   Teetime.query()
-    .insert(req.body)
-    .then(result => res.json(result))
+    .where("time", "=", req.body.time)
+    .then(result => {
+      if (result.length === 0) {
+        Teetime.query()
+          .insert({ time: req.body.time })
+          .then(newTeeTime => {
+            knex("cust_tee_times")
+              .insert({
+                customer_id: req.body.customer,
+                tee_time_id: newTeeTime.id
+              })
+              .then(() => res.send(newTeeTime));
+          });
+      } else {
+        knex("cust_tee_times")
+          .insert({
+            customer_id: req.body.customer,
+            tee_time_id: result[0].id
+          })
+          .then(() => res.send(result[0]));
+      }
+    })
     .catch(err => res.json(err));
 });
 
