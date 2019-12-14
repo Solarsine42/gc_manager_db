@@ -13,19 +13,9 @@ describe("tee_times routes testing", () => {
     });
   });
 
-  // afterEach(done => {
-  //   return knex.migrate.rollback().then(() => {
-  //     knex.migrate.latest().then(() => {
-  //       knex.seed.run().then(() => {
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
-
   describe("get all tee_times", () => {
     it("should fetch all tee times successfully", async () => {
-      const res = await request(app).get("/tee_times");
+      const res = await request(app).get("/teetimes");
 
       expect(res.status).toEqual(200);
       expect(res.body).toHaveLength(500);
@@ -35,10 +25,10 @@ describe("tee_times routes testing", () => {
   describe("get one tee time", () => {
     it("should fetch one tee time successfully", async () => {
       const id = 1;
-      const res = await request(app).get(`/tee_times/${id}`);
+      const res = await request(app).get(`/teetimes/${id}`);
 
       expect(res.status).toEqual(200);
-      expect(res.body).toHaveLength(1);
+      expect(res.body.id).toEqual(1);
     });
   });
 
@@ -46,11 +36,11 @@ describe("tee_times routes testing", () => {
     it("should add one tee time successfully", async () => {
       const newTeeTime = { time: "2019-10-10T10:10:10+07:00" };
       const res = await request(app)
-        .post("/tee_times")
+        .post("/teetimes")
         .send(newTeeTime);
 
       expect(res.status).toEqual(200);
-      expect(res.body).toHaveLength(1);
+      expect(res.body.id).toEqual(501);
     });
   });
 
@@ -62,12 +52,12 @@ describe("tee_times routes testing", () => {
 
       // Do the work
       const res = await request(app)
-        .patch(`/tee_times/${id}`)
+        .patch(`/teetimes/${id}`)
         .send(updatedTeeTime);
 
       // Test the response
       expect(res.status).toEqual(200);
-      expect(res.body[0].time.toString()).toEqual("2019-12-08T18:57:19.000Z");
+      expect(res.body.time.toString()).toEqual("2019-12-08T18:57:19.000Z");
 
       // Test the database
       const tee_times = await knex("tee_times");
@@ -80,10 +70,10 @@ describe("tee_times routes testing", () => {
   describe("remove one tee time", () => {
     it("should remove one tee time successfully", async () => {
       const id = 1;
-      const res = await request(app).delete(`/tee_times/${id}`);
+      const res = await request(app).delete(`/teetimes/${id}`);
 
       expect(res.status).toEqual(200);
-      expect(res.body[0].time).toEqual("2019-12-08T18:57:19.000Z");
+      expect(res.body.time).toEqual("2019-12-08T18:57:19.000Z");
 
       const tee_times = await knex("tee_times");
       expect(tee_times[0].id).toEqual(2);

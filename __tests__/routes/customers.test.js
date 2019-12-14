@@ -13,16 +13,6 @@ describe("customers routes testing", () => {
     });
   });
 
-  // afterEach(done => {
-  //   return knex.migrate.rollback().then(() => {
-  //     knex.migrate.latest().then(() => {
-  //       knex.seed.run().then(() => {
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
-
   describe("get all customers", () => {
     it("should fetch all customers successfully", async () => {
       const res = await request(app).get("/customers");
@@ -38,7 +28,7 @@ describe("customers routes testing", () => {
       const res = await request(app).get(`/customers/${id}`);
 
       expect(res.status).toEqual(200);
-      expect(res.body).toHaveLength(1);
+      expect(res.body.email).toEqual("margiebarber@pharmacon.com");
     });
   });
 
@@ -58,7 +48,7 @@ describe("customers routes testing", () => {
         .send(newCustomer);
 
       expect(res.status).toEqual(200);
-      expect(res.body).toHaveLength(1);
+      expect(res.body.email).toEqual("blah@pharmacon.com");
     });
   });
 
@@ -83,7 +73,7 @@ describe("customers routes testing", () => {
 
       // Test the response
       expect(res.status).toEqual(200);
-      expect(res.body[0].name).toEqual("Blah Blah");
+      expect(res.body.name).toEqual("Blah Blah");
 
       // Test the database
       const customers = await knex("customers");
@@ -97,7 +87,7 @@ describe("customers routes testing", () => {
       const res = await request(app).delete(`/customers/${id}`);
 
       expect(res.status).toEqual(200);
-      expect(res.body[0].name).toEqual("Margie Barber");
+      expect(res.body.name).toEqual("Margie Barber");
 
       const customers = await knex("customers");
       expect(customers[0].id).toEqual(2);
